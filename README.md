@@ -1,6 +1,12 @@
 # Spacewalk #
 This image provides all-in-one [Spacewalk][1] along with its embedded PostgreSQL database and also the Apache web server.
 
+# Build
+docker build . -t centos6-spacewalk-postgresql:latest
+
+# Run with
+docker run -ti <build container ID> /bin/bash
+
 ## Supported tags and respective Dockerfile links ##
 - `latest` ([Dockerfile][2])
 
@@ -9,13 +15,13 @@ This image provides all-in-one [Spacewalk][1] along with its embedded PostgreSQL
 
 ### Using the embedded Apache web server ###
 ```
-# docker run --privileged=true -d --name="spacewalk" -p 80:80 -p 443:443 bashell/spacewalk
+# docker run --privileged=true -d --name="centos6-spacewalk-postgresql" -p 80:80 -p 443:443 centos6-spacewalk-postgresql
 ```
 `Note` *The self-signed SSL certificate will be generated at the first time you run this container.*
-
+centos6-spacewalk-postgresql
 ### Run without exposing port 80 and 443 ###
 ```
-# docker run --privileged=true -d --name="spacewalk" bashell/spacewalk
+# docker run --privileged=true -d --name="centos6-spacewalk-postgresql" centos6-spacewalk-postgresql
 ```
 Then inspect the running container to get an IP address.
 ```
@@ -27,8 +33,8 @@ Now you can use an NginX reverse proxy (with you real SSL certificate) to `172.1
 ### Build and run your own image ###
 ```
 # hg clone https://bitbucket.org/bashell-com/spacewalk /opt/docker-spacewalk
-# docker build --rm -t spacewalk /opt/docker-spacewalk
-# docker run --privileged=true -d --name="spacewalk" spacewalk
+# docker build --rm -t centos6-spacewalk-postgresql /opt/docker-spacewalk
+# docker run --privileged=true -d --name="spacewalk" centos6-spacewalk-postgresql
 ```
 
 ## Customizing ##
@@ -50,7 +56,7 @@ The following inbound TCP ports should be open on the Spacewalk server:
     4545: Spacewalk monitoring
     5222: If you plan to push actions to client systems
     5269: If you push actions to a Spacewalk Proxy Server
-    9055: Oracle XE web access 
+    9055: Oracle XE web access
 
 [1]: http://spacewalk.redhat.com/
 [2]: https://bitbucket.org/bashell-com/spacewalk/src/default/Dockerfile?fileviewer=file-view-default
